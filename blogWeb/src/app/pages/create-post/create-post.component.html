@@ -1,0 +1,45 @@
+<mat-card class="center-card">
+  <mat-card-content>
+    <div>
+      <form [formGroup]="postForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill"> 
+            <mat-label>Image</mat-label>
+            <input matInput formControlName="image" >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill"> 
+            <mat-label>Contents</mat-label>
+            <textarea matInput row="5" formControlName="content" ></textarea>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill">
+            <mat-label>Author</mat-label>
+            <input matInput formControlName="author" >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Tags</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter Tags">
+                <mat-chip-row *ngFor="let tag of tags; let i = index" (removed)="remove(tag)">
+                    {{tag}}
+                    <button>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+                <input placeholder="New Tag..!" 
+                [matChipInputFor] ="chipGrid" 
+                (matChipInputTokenEnd)="add($event)"
+                />
+            </mat-chip-grid>
+        </mat-form-field>
+         
+        <button mat-raised-button color="primary" style="float: right;" [disabled]="!postForm.valid" (click)="createPost()">Create New Blog</button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
